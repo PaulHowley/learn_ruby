@@ -1,24 +1,20 @@
 class Book
-  
-  def titleize (book_name)
-    book_name.capitalize!
-    small_words = ["and", "the", "a", "an", "in", "of"]
-    capped_name = book_name.split.map! {|word| 
-      if small_words.include?(word)
-        word
-      else
-        word.capitalize
-      end
-    }.join(" ")
-    return capped_name
-  end
-
-  def title=(t)
-    @title = titleize(t)
-  end
+  attr_accessor :title
 
   def title
-    @title
+    titleize
   end
 
+  private
+
+  def titleize
+    @title.capitalize!
+    @title.split.map! do |word| 
+      small_words.include?(word) ? word : word.capitalize
+    end.join(" ")
+  end
+
+  def small_words
+    ["and", "the", "a", "an", "in", "of"]
+  end
 end
